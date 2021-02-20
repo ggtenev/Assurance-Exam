@@ -6,9 +6,10 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { one } from "../data/questions";
+import { one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen } from "../data/questions";
 import Colors from "../constants/Colors";
 import { Ionicons, MaterialIcons, FontAwesome } from "@expo/vector-icons";
+
 
 export default function One({ navigation, route }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -18,7 +19,69 @@ export default function One({ navigation, route }) {
   const [explain, setExplain] = useState(false);
   const [score, setScore] = useState(0);
 
-  const year = route.params.year;
+  const {year,number,lesson} = route.params;
+
+  let qq;
+  switch (number) {
+    case 1:
+      qq = one
+      break;
+  
+    case 2:
+      qq = two
+      break;
+  
+    case 3:
+      qq = three
+      break;
+  
+    case 4:
+      qq = four
+      break;
+  
+    case 5:
+      qq = five
+      break;
+  
+    case 6:
+      qq = six
+      break;
+  
+    case 7:
+      qq = seven
+      break;
+  
+    case 8:
+      qq = eight
+      break;
+  
+    case 9:
+      qq = nine
+      break;
+  
+    case 10:
+      qq = ten
+      break;
+  
+    case 11:
+      qq = eleven
+      break;
+  
+    case 12:
+      qq = twelve
+      break;
+  
+    case 13:
+      qq = thirteen
+      break;
+  
+    case 14:
+      qq = fourteen
+      break;
+  
+    default:1
+      break;
+  }
 
   const answerStyles = StyleSheet.create({
     answer: {
@@ -35,9 +98,16 @@ export default function One({ navigation, route }) {
     },
   });
 
+  const titleShown = (
+    <View>
+      <Text style={{fontSize:23}}><Text style={{fontStyle:'italic',fontSize:25,fontWeight:'bold'}}>Assurance</Text> / <Text style={{fontWeight:'bold',fontSize:23}}>{year}</Text></Text>
+    </View>
+  ) 
+   
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: "Assurance / " + year,
+      headerTitle:() => titleShown,
       height: 120,
       headerTitleAlign: "left",
       headerStyle: {
@@ -56,16 +126,16 @@ export default function One({ navigation, route }) {
       <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
         <View style={styles.category}>
           <View style={styles.number}>
-            <Text style={{ fontSize: 25 }}>1</Text>
+            <Text style={{ fontSize: 25 }}>{number}</Text>
           </View>
 
-          <Text style={{ fontSize: 21, fontWeight: "bold", width: "80%" }}>
-            The Fundamentals of assurance
+          <Text style={{ fontSize: 23, fontWeight: "bold", width: "80%" }}>
+            {lesson}
           </Text>
         </View>
-        <Text style={styles.question}>{one[currentQuestion].question}</Text>
+        <Text style={styles.question}>{qq[currentQuestion].question}</Text>
         <View>
-          {one[currentQuestion].answers.map((q, i) => {
+          {qq[currentQuestion].answers.map((q, i) => {
             if (q.answerCondition) {
               return (
                 <Text
@@ -131,7 +201,7 @@ export default function One({ navigation, route }) {
             <Text
               style={{ fontSize: 22, fontWeight: "bold", textAlign: "center" }}
             >
-              {one[currentQuestion].explanation}
+              {qq[currentQuestion].explanation}
             </Text>
           </View>
           </View>
@@ -146,7 +216,7 @@ export default function One({ navigation, route }) {
             marginTop: 10,
           }}
         >
-          Question: {currentQuestion + 1}/{one.length}
+          Question: {currentQuestion + 1}/{qq.length}
         </Text>
       </ScrollView>
       <View style={styles.footer}>
@@ -161,7 +231,7 @@ export default function One({ navigation, route }) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            const right = one[currentQuestion].answers.filter((q) => {
+            const right = qq[currentQuestion].answers.filter((q) => {
               return q.correct;
             });
             if (correct.length === right.length && incorrect.length == 0) {
@@ -171,19 +241,20 @@ export default function One({ navigation, route }) {
             setCorrect([]);
             setIncorrect([]);
             setExplain(false);
-            if (currentQuestion + 1 === one.length) {
+            if (currentQuestion + 1 === qq.length) {
               setCurrentQuestion(0);
               setScore(0);
               navigation.navigate("Result", {
                 score,
                 year,
-                number: 1,
-                totalQuestions: one.length,
+                number: number,
+                lesson:lesson,
+                totalQuestions: qq.length,
               });
             } else setCurrentQuestion(currentQuestion + 1);
 
             console.log(score);
-            console.log(one.length);
+            console.log(qq.length);
           }}
         >
           <MaterialIcons name='keyboard-arrow-right' size={44} color='black' />
@@ -204,6 +275,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // justifyContent:'center'
     alignItems: "center",
+    marginBottom:7
   },
   btn: {
     paddingHorizontal: 22,
@@ -234,7 +306,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   question: {
-    fontSize: 24,
+    fontSize: 21,
     width: "90%",
     margin: 15,
     fontWeight: "bold",

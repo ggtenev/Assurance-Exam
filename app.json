@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Economics",
-    "slug": "Economics",
+    "name": "MCQ-Question-Bank",
+    "slug": "mcq-question-bank",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -31,6 +31,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }
